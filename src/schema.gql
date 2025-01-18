@@ -3,13 +3,43 @@
 # ------------------------------------------------------
 
 type User {
-  id: Int!
-  displayName: String!
+  username: String!
+  email: String!
+}
+
+type AuthResponse {
+  token: String!
   username: String!
 }
 
 type Query {
-  getUser: User!
-  getUserById(id: Int!): User
-  getUsers: [User!]!
+  users: [User!]!
+  finduser(id: String!): User!
+}
+
+type Mutation {
+  signup(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: String!): User!
+  login(loginInput: LoginInput!): AuthResponse!
+}
+
+input CreateUserInput {
+  username: String!
+  password: String!
+  address: String
+  email: String!
+}
+
+input UpdateUserInput {
+  username: String
+  password: String
+  address: String
+  email: String
+  id: String!
+}
+
+input LoginInput {
+  username: String!
+  password: String!
 }
