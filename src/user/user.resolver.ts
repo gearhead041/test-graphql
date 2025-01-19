@@ -4,7 +4,7 @@ import { User } from './entities/user.entity';
 import { CreateUserInput } from './dto/create-user.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from 'src/auth/auth.guard';
+import { GqlAuthGuard } from 'src/auth/guards/auth.guard';
 
 @Resolver(() => User)
 export class UserResolver {
@@ -12,10 +12,7 @@ export class UserResolver {
     private readonly userService: UserService,
   ) {}
 
-  @Mutation(() => User, {name: 'signup'})
-  createUser(@Args('createUserInput') createUserInput: CreateUserInput) {
-    return this.userService.signup(createUserInput);
-  }
+
 
   @UseGuards(GqlAuthGuard)
   @Query(() => [User], { name: 'users' })

@@ -13,9 +13,11 @@ export class UserService {
     private userModel: Model<UserDocument>,
   ) {}
 
-  async signup(createUserInput: CreateUserInput) {
+  async createUser(createUserInput: CreateUserInput) {
     let { password } = createUserInput;
+
     password = await bcrypt.hash(password, 10);
+    
     let oldUser = await this.userModel.find({
       $or: [
         { username: createUserInput.username },
